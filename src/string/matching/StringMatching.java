@@ -77,15 +77,6 @@ public class StringMatching {
     }
 
     public static void createShiftTable(String pattern, int lengthOfPattern, String text) {
-        //initialize shift table chareters with length of pattern
-        int textLength = text.length();
-        for (int i = 0; i < textLength; i++) {
-            char ch = text.charAt(i);
-            if (!shiftTable.containsKey(ch)) {
-                shiftTable.put(ch, lengthOfPattern);
-            }
-        }
-
         //implement algorithm
         for (int i = 0; i < lengthOfPattern - 1; i++) {
             shiftTable.put(pattern.charAt(i), lengthOfPattern - 1 - i);
@@ -103,7 +94,7 @@ public class StringMatching {
             if (k == m) {
                 return i - m + 1;
             } else {
-                i = i + shiftTable.get(text.charAt(i));
+                i = i + shiftTable.getOrDefault(text.charAt(i), pattern.length());
             }
         }
         return -1;
